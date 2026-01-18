@@ -1,0 +1,48 @@
+Smart prioritization: AI suggests priorities based on deadlines, keywords, and past behavior.
+Time blocking: Estimate and block calendar time for tasks.
+Subtasks and dependencies: Break down tasks with parent-child relationships and blockers.
+Organization and views
+Multiple views: List, Kanban, Calendar, Timeline, Matrix (Eisenhower).
+Smart lists: Auto-filter by tags, dates, priorities, or context (e.g., "Work", "Home", "Calls").
+Projects and workspaces: Group related tasks with shared settings.
+Productivity
+Pomodoro timer: Built-in timer with task-tracking integration.
+Focus mode: Hide distractions; show only the current task.
+Templates: Recurring task sets (e.g., "Weekly Review", "Morning Routine").
+Natural language input: "Meeting with John tomorrow at 2pm" auto-creates tasks with details.
+Collaboration
+Shared lists: Collaborate with family/team members.
+Comments and attachments: Add notes and files to tasks.
+Activity feed: Track changes and completions.
+Motivation and gamification
+Streaks: Daily completion streaks.
+Achievements: Badges for milestones.
+Visualization: Progress charts and stats.
+Smart features
+Smart suggestions: Auto-create tasks from emails, calendar events, or messages.
+Due date reminders: Notifications and overdue warnings.
+Batch operations: Bulk edit, move, or delete tasks.
+Advanced
+Integration: Calendar, email (Gmail, Outlook), Slack, GitHub issues.
+Location-based reminders: Trigger when arriving at a place.
+Voice input: Speak to add tasks.
+Dark mode and themes: Customizable appearance.
+Offline support: Works without internet; syncs when online.
+Search and filters: Quick search with saved filter presets.
+Technical implementation ideas
+Drag-and-drop: Reorder in list or move between lists.
+Keyboard shortcuts: Power-user navigation.
+Quick add: Always-visible input bar.
+Snooze: Postpone tasks to later today/tomorrow.
+Task recurrence: Daily, weekly, monthly with customization.
+Archive: Soft-delete completed tasks for later review.
+Recommended starting features
+Natural language task input
+Priority levels with color coding
+Multiple views (List, Kanban, Calendar)
+Tags and filtering
+Recurring tasks
+Dark mode
+
+
+implement all these features i have added openai api key in the env with the 

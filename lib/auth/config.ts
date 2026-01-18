@@ -46,8 +46,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           
           // Check if user exists
           const existingUser = await usersCollection.findOne({
-            email: user.email,
-          });
+            email: user.email as string,
+          } as any);
 
           // If user doesn't exist, create a new one
           if (!existingUser) {

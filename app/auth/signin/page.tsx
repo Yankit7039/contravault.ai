@@ -1,5 +1,5 @@
 // Sign In Page
-// Beautiful login page with Google OAuth using the app color palette
+// Beautiful login page with Google OAuth using the app color palette - Professional Design
 
 "use client";
 
@@ -21,83 +21,81 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: "#D3DAD9" }}>
-      <div className="w-full max-w-md px-6 py-8">
+    <div className="min-h-screen flex items-center justify-center p-4" style={{ backgroundColor: "#D3DAD9" }}>
+      <div className="w-full max-w-md">
         {/* Login Card */}
         <div 
-          className="rounded-2xl shadow-2xl overflow-hidden"
-          style={{ backgroundColor: "#37353E" }}
+          className="rounded-2xl shadow-2xl overflow-hidden border backdrop-blur-sm"
+          style={{ 
+            backgroundColor: "#37353E",
+            borderColor: "rgba(68, 68, 78, 0.3)",
+            boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2)",
+          }}
         >
           {/* Header Section */}
           <div 
-            className="px-8 pt-10 pb-6 text-center"
-            style={{ backgroundColor: "#44444E" }}
+            className="px-8 pt-12 pb-8 text-center"
+            style={{ 
+              background: "linear-gradient(135deg, #44444E 0%, #37353E 100%)",
+            }}
           >
-            <div className="mb-4">
+            <div className="mb-6">
               {/* Logo */}
-              <div className="flex justify-center mb-4">
-                <Image
-                  src="/Gemini_Generated_Image_f6rbb4f6rbb4f6rb.png"
-                  alt="Planix Logo"
-                  width={80}
-                  height={80}
-                  className="rounded-full"
-                  style={{ objectFit: "cover" }}
-                />
+              <div className="flex justify-center mb-6">
+                <div className="relative">
+                  <Image
+                    src="/Gemini_Generated_Image_f6rbb4f6rbb4f6rb.png"
+                    alt="Planix Logo"
+                    width={96}
+                    height={96}
+                    className="rounded-full shadow-xl border-4"
+                    style={{ 
+                      objectFit: "cover",
+                      borderColor: "#715A5A",
+                      boxShadow: "0 8px 16px rgba(113, 90, 90, 0.3)",
+                    }}
+                  />
+                </div>
               </div>
-              <h1 className="text-3xl font-bold mb-2" style={{ color: "#D3DAD9" }}>
+              <h1 className="text-3xl font-bold mb-3 tracking-tight" style={{ color: "#D3DAD9" }}>
                 Welcome to Planix
               </h1>
-              <p className="text-sm" style={{ color: "#D3DAD9", opacity: 0.8 }}>
-                Sign in to manage your tasks
+              <p className="text-sm font-medium" style={{ color: "#D3DAD9", opacity: 0.85 }}>
+                Sign in to manage your tasks efficiently
               </p>
             </div>
           </div>
 
           {/* Content Section */}
-          <div className="px-8 py-8">
+          <div className="px-8 py-10">
             {/* Sign In Button */}
             <button
               onClick={handleSignIn}
               disabled={isLoading}
-              className="w-full py-4 px-6 rounded-lg font-semibold text-base transition-all duration-200 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg"
+              className="w-full py-4 px-6 rounded-xl font-semibold text-base transition-all duration-200 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
               style={{
-                backgroundColor: isLoading ? "#44444E" : "#715A5A",
+                background: isLoading 
+                  ? "linear-gradient(135deg, #44444E 0%, #37353E 100%)"
+                  : "linear-gradient(135deg, #715A5A 0%, #5a4a4a 100%)",
                 color: "#D3DAD9",
+                boxShadow: "0 4px 6px rgba(113, 90, 90, 0.2)",
               }}
               onMouseEnter={(e) => {
                 if (!isLoading) {
-                  e.currentTarget.style.backgroundColor = "#5a4a4a";
+                  e.currentTarget.style.transform = "translateY(-2px)";
+                  e.currentTarget.style.boxShadow = "0 8px 16px rgba(113, 90, 90, 0.3)";
                 }
               }}
               onMouseLeave={(e) => {
                 if (!isLoading) {
-                  e.currentTarget.style.backgroundColor = "#715A5A";
+                  e.currentTarget.style.transform = "translateY(0)";
+                  e.currentTarget.style.boxShadow = "0 4px 6px rgba(113, 90, 90, 0.2)";
                 }
               }}
             >
               {isLoading ? (
                 <>
-                  <svg
-                    className="animate-spin h-5 w-5"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                    ></circle>
-                    <path
-                      className="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                    ></path>
-                  </svg>
+                  <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin"></div>
                   <span>Signing in...</span>
                 </>
               ) : (
@@ -118,7 +116,7 @@ export default function SignInPage() {
             </button>
 
             {/* Footer Text */}
-            <p className="text-center mt-6 text-sm" style={{ color: "#D3DAD9", opacity: 0.7 }}>
+            <p className="text-center mt-6 text-xs font-medium" style={{ color: "#D3DAD9", opacity: 0.7 }}>
               Secure authentication powered by Google
             </p>
           </div>
@@ -126,7 +124,7 @@ export default function SignInPage() {
 
         {/* Decorative Elements */}
         <div className="mt-8 text-center">
-          <p className="text-sm" style={{ color: "#715A5A" }}>
+          <p className="text-sm font-medium" style={{ color: "#715A5A" }}>
             Your tasks, organized and secure
           </p>
         </div>

@@ -1,5 +1,5 @@
 // Task Form Component
-// Form for creating and editing tasks
+// Form for creating and editing tasks - Professional & Elegant Design
 
 "use client";
 
@@ -49,14 +49,14 @@ export default function TaskForm({ task, onSubmit, onCancel }: TaskFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-5">
       <div>
         <label
           htmlFor="title"
-          className="block text-sm font-medium mb-1"
+          className="block text-sm font-semibold mb-2 tracking-wide"
           style={{ color: "#37353E" }}
         >
-          Title *
+          Title <span className="text-red-500">*</span>
         </label>
         <input
           type="text"
@@ -66,10 +66,10 @@ export default function TaskForm({ task, onSubmit, onCancel }: TaskFormProps) {
           onChange={(e) =>
             setFormData({ ...formData, title: e.target.value })
           }
-          className="w-full px-3 py-2 rounded-md focus:outline-none focus:ring-2 transition-all"
+          className="w-full px-4 py-3 rounded-lg input-focus text-sm font-medium"
           style={{
             backgroundColor: "#D3DAD9",
-            border: "2px solid #44444E",
+            border: "1.5px solid rgba(68, 68, 78, 0.3)",
             color: "#37353E",
           }}
           onFocus={(e) => {
@@ -77,7 +77,7 @@ export default function TaskForm({ task, onSubmit, onCancel }: TaskFormProps) {
             e.currentTarget.style.boxShadow = "0 0 0 3px rgba(113, 90, 90, 0.1)";
           }}
           onBlur={(e) => {
-            e.currentTarget.style.borderColor = "#44444E";
+            e.currentTarget.style.borderColor = "rgba(68, 68, 78, 0.3)";
             e.currentTarget.style.boxShadow = "none";
           }}
           placeholder="Enter task title"
@@ -87,10 +87,10 @@ export default function TaskForm({ task, onSubmit, onCancel }: TaskFormProps) {
       <div>
         <label
           htmlFor="description"
-          className="block text-sm font-medium mb-1"
+          className="block text-sm font-semibold mb-2 tracking-wide"
           style={{ color: "#37353E" }}
         >
-          Description *
+          Description <span className="text-red-500">*</span>
         </label>
         <textarea
           id="description"
@@ -100,10 +100,10 @@ export default function TaskForm({ task, onSubmit, onCancel }: TaskFormProps) {
             setFormData({ ...formData, description: e.target.value })
           }
           rows={4}
-          className="w-full px-3 py-2 rounded-md focus:outline-none focus:ring-2 transition-all resize-none"
+          className="w-full px-4 py-3 rounded-lg input-focus resize-none text-sm font-medium"
           style={{
             backgroundColor: "#D3DAD9",
-            border: "2px solid #44444E",
+            border: "1.5px solid rgba(68, 68, 78, 0.3)",
             color: "#37353E",
           }}
           onFocus={(e) => {
@@ -111,126 +111,135 @@ export default function TaskForm({ task, onSubmit, onCancel }: TaskFormProps) {
             e.currentTarget.style.boxShadow = "0 0 0 3px rgba(113, 90, 90, 0.1)";
           }}
           onBlur={(e) => {
-            e.currentTarget.style.borderColor = "#44444E";
+            e.currentTarget.style.borderColor = "rgba(68, 68, 78, 0.3)";
             e.currentTarget.style.boxShadow = "none";
           }}
           placeholder="Enter task description"
         />
       </div>
 
-      <div>
-        <label
-          htmlFor="deadline"
-          className="block text-sm font-medium mb-1"
-          style={{ color: "#37353E" }}
-        >
-          Date & Time *
-        </label>
-        <input
-          type="datetime-local"
-          id="deadline"
-          required
-          value={formData.deadline}
-          onChange={(e) =>
-            setFormData({ ...formData, deadline: e.target.value })
-          }
-          className="w-full px-3 py-2 rounded-md focus:outline-none focus:ring-2 transition-all"
-          style={{
-            backgroundColor: "#D3DAD9",
-            border: "2px solid #44444E",
-            color: "#37353E",
-          }}
-          onFocus={(e) => {
-            e.currentTarget.style.borderColor = "#715A5A";
-            e.currentTarget.style.boxShadow = "0 0 0 3px rgba(113, 90, 90, 0.1)";
-          }}
-          onBlur={(e) => {
-            e.currentTarget.style.borderColor = "#44444E";
-            e.currentTarget.style.boxShadow = "none";
-          }}
-        />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div>
+          <label
+            htmlFor="deadline"
+            className="block text-sm font-semibold mb-2 tracking-wide"
+            style={{ color: "#37353E" }}
+          >
+            Date & Time <span className="text-red-500">*</span>
+          </label>
+          <input
+            type="datetime-local"
+            id="deadline"
+            required
+            value={formData.deadline}
+            onChange={(e) =>
+              setFormData({ ...formData, deadline: e.target.value })
+            }
+            className="w-full px-4 py-3 rounded-lg input-focus text-sm font-medium"
+            style={{
+              backgroundColor: "#D3DAD9",
+              border: "1.5px solid rgba(68, 68, 78, 0.3)",
+              color: "#37353E",
+            }}
+            onFocus={(e) => {
+              e.currentTarget.style.borderColor = "#715A5A";
+              e.currentTarget.style.boxShadow = "0 0 0 3px rgba(113, 90, 90, 0.1)";
+            }}
+            onBlur={(e) => {
+              e.currentTarget.style.borderColor = "rgba(68, 68, 78, 0.3)";
+              e.currentTarget.style.boxShadow = "none";
+            }}
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="priority"
+            className="block text-sm font-semibold mb-2 tracking-wide"
+            style={{ color: "#37353E" }}
+          >
+            Priority <span className="text-red-500">*</span>
+          </label>
+          <select
+            id="priority"
+            required
+            value={formData.priority}
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                priority: e.target.value as TaskPriority,
+              })
+            }
+            className="w-full px-4 py-3 rounded-lg input-focus text-sm font-medium"
+            style={{
+              backgroundColor: "#D3DAD9",
+              border: "1.5px solid rgba(68, 68, 78, 0.3)",
+              color: "#37353E",
+            }}
+            onFocus={(e) => {
+              e.currentTarget.style.borderColor = "#715A5A";
+              e.currentTarget.style.boxShadow = "0 0 0 3px rgba(113, 90, 90, 0.1)";
+            }}
+            onBlur={(e) => {
+              e.currentTarget.style.borderColor = "rgba(68, 68, 78, 0.3)";
+              e.currentTarget.style.boxShadow = "none";
+            }}
+          >
+            <option value="low">Low Priority</option>
+            <option value="medium">Medium Priority</option>
+            <option value="high">High Priority</option>
+          </select>
+        </div>
       </div>
 
-      <div>
-        <label
-          htmlFor="priority"
-          className="block text-sm font-medium mb-1"
-          style={{ color: "#37353E" }}
-        >
-          Priority *
-        </label>
-        <select
-          id="priority"
-          required
-          value={formData.priority}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              priority: e.target.value as TaskPriority,
-            })
-          }
-          className="w-full px-3 py-2 rounded-md focus:outline-none focus:ring-2 transition-all"
-          style={{
-            backgroundColor: "#D3DAD9",
-            border: "2px solid #44444E",
-            color: "#37353E",
-          }}
-          onFocus={(e) => {
-            e.currentTarget.style.borderColor = "#715A5A";
-            e.currentTarget.style.boxShadow = "0 0 0 3px rgba(113, 90, 90, 0.1)";
-          }}
-          onBlur={(e) => {
-            e.currentTarget.style.borderColor = "#44444E";
-            e.currentTarget.style.boxShadow = "none";
-          }}
-        >
-          <option value="low">Low</option>
-          <option value="medium">Medium</option>
-          <option value="high">High</option>
-        </select>
-      </div>
-
-      <div className="flex gap-2">
+      <div className="flex gap-3 pt-2">
         <button
           type="submit"
           disabled={isSubmitting}
-          className="flex-1 py-2 px-4 rounded-md font-medium transition-all duration-200 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+          className="flex-1 py-3 px-6 rounded-lg font-semibold text-sm transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           style={{
-            backgroundColor: isSubmitting ? "#44444E" : "#715A5A",
+            background: isSubmitting 
+              ? "linear-gradient(135deg, #44444E 0%, #37353E 100%)"
+              : "linear-gradient(135deg, #715A5A 0%, #5a4a4a 100%)",
             color: "#D3DAD9",
+            boxShadow: "0 4px 6px rgba(113, 90, 90, 0.2)",
           }}
           onMouseEnter={(e) => {
             if (!isSubmitting) {
-              e.currentTarget.style.backgroundColor = "#5a4a4a";
+              e.currentTarget.style.transform = "translateY(-1px)";
+              e.currentTarget.style.boxShadow = "0 6px 12px rgba(113, 90, 90, 0.3)";
             }
           }}
           onMouseLeave={(e) => {
             if (!isSubmitting) {
-              e.currentTarget.style.backgroundColor = "#715A5A";
+              e.currentTarget.style.transform = "translateY(0)";
+              e.currentTarget.style.boxShadow = "0 4px 6px rgba(113, 90, 90, 0.2)";
             }
           }}
         >
           {isSubmitting
             ? "Saving..."
             : task
-            ? "Update Task"
-            : "Create Task"}
+            ? "✓ Update Task"
+            : "✓ Create Task"}
         </button>
         {onCancel && (
           <button
             type="button"
             onClick={onCancel}
-            className="px-4 py-2 rounded-md font-medium transition-all duration-200 hover:shadow-md"
+            className="px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-200"
             style={{
               backgroundColor: "#D3DAD9",
-              border: "2px solid #44444E",
+              border: "1.5px solid rgba(68, 68, 78, 0.3)",
               color: "#37353E",
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.backgroundColor = "#C3CAC9";
+              e.currentTarget.style.borderColor = "#715A5A";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.backgroundColor = "#D3DAD9";
+              e.currentTarget.style.borderColor = "rgba(68, 68, 78, 0.3)";
             }}
           >
             Cancel
