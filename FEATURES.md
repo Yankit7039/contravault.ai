@@ -59,7 +59,7 @@
 ## 🚧 Partially Implemented
 
 ### Technical Features
-- ⚠️ **Drag-and-Drop** - Data model ready, UI component needs react-beautiful-dnd integration
+- ⚠️ **Drag-and-Drop** - Data model ready, UI component needs drag-and-drop library integration (react-beautiful-dnd removed due to React 19 incompatibility)
 - ⚠️ **Keyboard Shortcuts** - Can be added with keyboard event listeners
 - ⚠️ **Offline Support** - Requires service worker and IndexedDB setup
 
@@ -88,7 +88,7 @@
 
 ### Dependencies Added
 - `openai` - For AI features
-- `react-beautiful-dnd` - For drag-and-drop (installed, needs integration)
+- `react-beautiful-dnd` - Removed (not compatible with React 19, needs alternative)
 - `recharts` - For statistics visualization
 
 ### Environment Variables Required
@@ -113,7 +113,7 @@ All these fields are in the database schema and can be used by adding UI compone
 
 ## 🎯 Next Steps
 
-1. **Complete Drag-and-Drop** - Integrate react-beautiful-dnd in list and kanban views
+1. **Complete Drag-and-Drop** - Integrate a React 19-compatible drag-and-drop library (e.g., @dnd-kit/core) in list and kanban views
 2. **Add Keyboard Shortcuts** - Implement power-user navigation
 3. **File Upload API** - For attachments
 4. **Notification System** - For reminders and due dates

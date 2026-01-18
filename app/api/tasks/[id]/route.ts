@@ -87,8 +87,18 @@ export async function PUT(
     });
   } catch (error) {
     console.error("Error updating task:", error);
+    const errorMessage = error instanceof Error ? error.message : "Failed to update task";
+    
+    // Check if it's a duplicate deadline error
+    if (errorMessage.includes("already exists at this date and time")) {
+      return NextResponse.json(
+        { success: false, error: errorMessage },
+        { status: 409 } // Conflict status code
+      );
+    }
+    
     return NextResponse.json(
-      { success: false, error: "Failed to update task" },
+      { success: false, error: errorMessage },
       { status: 500 }
     );
   }

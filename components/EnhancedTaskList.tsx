@@ -86,24 +86,20 @@ export default function EnhancedTaskList() {
 
   // Create task
   const handleCreateTask = async (data: TaskInput) => {
-    try {
-      const response = await fetch("/api/tasks", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
+    const response = await fetch("/api/tasks", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
 
-      const result = await response.json();
-      
-      if (result.success) {
-        await fetchTasks();
-        setShowForm(false);
-      } else {
-        alert(result.error || "Failed to create task");
-      }
-    } catch (error) {
-      console.error("Error creating task:", error);
-      alert("Failed to create task");
+    const result = await response.json();
+    
+    if (result.success) {
+      await fetchTasks();
+      setShowForm(false);
+    } else {
+      // Throw error so TaskForm can catch and display it
+      throw new Error(result.error || "Failed to create task");
     }
   };
 
@@ -131,23 +127,19 @@ export default function EnhancedTaskList() {
 
   // Update task
   const handleUpdateTask = async (taskId: string, updates: Partial<Task>) => {
-    try {
-      const response = await fetch(`/api/tasks/${taskId}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updates),
-      });
+    const response = await fetch(`/api/tasks/${taskId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updates),
+    });
 
-      const result = await response.json();
-      
-      if (result.success) {
-        await fetchTasks();
-      } else {
-        alert(result.error || "Failed to update task");
-      }
-    } catch (error) {
-      console.error("Error updating task:", error);
-      alert("Failed to update task");
+    const result = await response.json();
+    
+    if (result.success) {
+      await fetchTasks();
+    } else {
+      // Throw error so TaskForm can catch and display it
+      throw new Error(result.error || "Failed to update task");
     }
   };
 

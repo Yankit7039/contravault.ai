@@ -14,6 +14,7 @@ interface TaskFormProps {
 
 export default function TaskForm({ task, onSubmit, onCancel }: TaskFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState<TaskInput>({
     title: task?.title || "",
     description: task?.description || "",
@@ -26,6 +27,7 @@ export default function TaskForm({ task, onSubmit, onCancel }: TaskFormProps) {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setError(null);
 
     try {
       // Convert local datetime to ISO string
@@ -43,6 +45,8 @@ export default function TaskForm({ task, onSubmit, onCancel }: TaskFormProps) {
       }
     } catch (error) {
       console.error("Error submitting form:", error);
+      const errorMessage = error instanceof Error ? error.message : "Failed to submit task";
+      setError(errorMessage);
     } finally {
       setIsSubmitting(false);
     }
@@ -50,6 +54,19 @@ export default function TaskForm({ task, onSubmit, onCancel }: TaskFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
+      {error && (
+        <div
+          className="px-4 py-3 rounded-lg text-sm font-medium flex items-center gap-2"
+          style={{
+            backgroundColor: "rgba(113, 90, 90, 0.1)",
+            border: "1px solid rgba(113, 90, 90, 0.3)",
+            color: "#715A5A",
+          }}
+        >
+          <span style={{ fontSize: "16px" }}>⚠</span>
+          <span>{error}</span>
+        </div>
+      )}
       <div>
         <label
           htmlFor="title"

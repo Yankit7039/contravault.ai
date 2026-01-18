@@ -6,6 +6,44 @@ import type { Task, TaskInput, TaskPriority, TaskStatus } from "@/types";
 import { ObjectId, type Filter } from "mongodb";
 
 /**
+ * Check if a task with the same deadline already exists for the user
+ */
+export async function taskExistsAtDeadline(
+  userId: string,
+  deadline: Date,
+  excludeTaskId?: string
+): Promise<boolean> {
+  const tasksCollection = await getTasksCollection();
+  
+  // Normalize dates to compare only date and time (ignore milliseconds)
+  const normalizedDeadline = new Date(deadline);
+  normalizedDeadline.setMilliseconds(0);
+  
+  const startOfMinute = new Date(normalizedDeadline);
+  startOfMinute.setSeconds(0);
+  const endOfMinute = new Date(startOfMinute);
+  endOfMinute.setSeconds(59);
+  endOfMinute.setMilliseconds(999);
+  
+  const query: any = {
+    userId,
+    deadline: {
+      $gte: startOfMinute,
+      $lte: endOfMinute,
+    },
+    $or: [{ is_deleted: { $ne: true } }, { is_deleted: { $exists: false } }],
+  };
+  
+  // Exclude current task if updating
+  if (excludeTaskId) {
+    query._id = { $ne: new ObjectId(excludeTaskId) };
+  }
+  
+  const existingTask = await tasksCollection.findOne(query);
+  return existingTask !== null;
+}
+
+/**
  * Create a new task
  */
 export async function createTask(
@@ -14,11 +52,19 @@ export async function createTask(
 ): Promise<Task> {
   const tasksCollection = await getTasksCollection();
   
+  const deadline = new Date(taskData.deadline);
+  
+  // Check if a task with the same deadline already exists
+  const exists = await taskExistsAtDeadline(userId, deadline);
+  if (exists) {
+    throw new Error("A task already exists at this date and time. Please choose a different time.");
+  }
+  
   const newTask: Task = {
     userId,
     title: taskData.title,
     description: taskData.description,
-    deadline: new Date(taskData.deadline),
+    deadline,
     priority: taskData.priority,
     status: "pending",
     is_deleted: false,
@@ -106,6 +152,15 @@ export async function updateTask(
   updates: Partial<TaskInput>
 ): Promise<Task | null> {
   const tasksCollection = await getTasksCollection();
+  
+  // Check for duplicate deadline if deadline is being updated
+  if (updates.deadline) {
+    const deadline = new Date(updates.deadline);
+    const exists = await taskExistsAtDeadline(userId, deadline, taskId);
+    if (exists) {
+      throw new Error("A task already exists at this date and time. Please choose a different time.");
+    }
+  }
   
   const updateData: Partial<Task> = {
     updatedAt: new Date(),
