@@ -25,6 +25,7 @@ if (!process.env.GOOGLE_CLIENT_SECRET) {
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   secret: process.env.NEXTAUTH_SECRET || process.env.AUTH_SECRET,
+  trustHost: true, // Trust host header in production
   providers: [
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID || "",
@@ -34,6 +35,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
     async signIn({ user, account }) {
       if (account?.provider === "google") {
+        // Ensure email exists before proceeding
+        if (!user.email) {
+          console.error("User email is missing");
+          return false;
+        }
+
         try {
           const usersCollection = await getUsersCollection();
           
@@ -45,7 +52,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           // If user doesn't exist, create a new one
           if (!existingUser) {
             await usersCollection.insertOne({
-              email: user.email || "",
+              email: user.email,
               name: user.name || "",
               image: user.image || "",
               createdAt: new Date(),
@@ -70,7 +77,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return true;
     },
     async session({ session, token }) {
-      if (session.user) {
+      if (session.user && session.user.email) {
         try {
           const usersCollection = await getUsersCollection();
           const user = await usersCollection.findOne({

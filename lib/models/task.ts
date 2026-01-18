@@ -3,7 +3,7 @@
 
 import { getTasksCollection } from "@/lib/db/collections";
 import type { Task, TaskInput, TaskPriority, TaskStatus } from "@/types";
-import { ObjectId } from "mongodb";
+import { ObjectId, type Filter } from "mongodb";
 
 /**
  * Create a new task
